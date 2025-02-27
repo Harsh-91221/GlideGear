@@ -177,3 +177,4 @@ C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Debug\net9.0\refint\API.dll
 C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Debug\net9.0\API.pdb
 C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Debug\net9.0\API.genruntimeconfig.cache
 C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Debug\net9.0\ref\API.dll
+C:\Users\lenovo\restore\Restore\GlideGear\API\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
