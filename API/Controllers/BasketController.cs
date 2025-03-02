@@ -58,7 +58,7 @@ namespace API.Controllers
             context.Baskets.Add(basket);
             return basket;
         }
-        private async Task<Basket?> RetrieveBasket()
+        private async Task<Basket?> RetrieveBasket() 
         {
             return await context.Baskets.Include(x => x.Items)
             .ThenInclude(x => x.Product)
