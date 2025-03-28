@@ -134,8 +134,6 @@ C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\API.MvcApplicat
 C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\API.sourcelink.json
 C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\scopedcss\bundle\API.styles.css
 C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\compressed\lwg6xvakde-ozte3640g8.gz
-C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\compressed\mvpoqv71f7-axbov8k3ti.gz
-C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\compressed\1dpm1p8bmc-wmrjwxwolz.gz
 C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\compressed\4pit3vs01m-69kjnsiwqx.gz
 C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\staticwebassets.build.json
 C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\staticwebassets.development.json
@@ -152,3 +150,5 @@ C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\refint\API.dll
 C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\API.pdb
 C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\API.genruntimeconfig.cache
 C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\ref\API.dll
+C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\compressed\2nfgv17wba-g2xou8753q.gz
+C:\Users\lenovo\restore\Restore\GlideGear\API\obj\Release\net9.0\compressed\1dpm1p8bmc-6o0dkzcyku.gz
