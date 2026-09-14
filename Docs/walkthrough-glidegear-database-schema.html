@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlideGear — Database Schema Details</title>
+  <style>
+    :root { --primary: #2563eb; --success: #16a34a; --warning: #d97706; --danger: #dc2626; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --muted: #64748b; --border: #e2e8f0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    .container { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
+    h1 { font-size: 2rem; margin-bottom: 8px; color: var(--primary); }
+    h2 { font-size: 1.3rem; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--border); }
+    h3 { font-size: 1.05rem; margin: 20px 0 8px; }
+    p { margin-bottom: 12px; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.88rem; }
+    th, td { padding: 10px 14px; border: 1px solid var(--border); text-align: left; }
+    th { background: var(--bg); font-weight: 600; }
+    tr:hover { background: #f1f5f9; }
+    .entity-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+    .entity-card h3 { margin-top: 0; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    .field-row { display: flex; gap: 12px; padding: 6px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+    .field-row:last-child { border-bottom: none; }
+    .field-name { font-weight: 600; min-width: 160px; font-family: monospace; }
+    .field-type { color: var(--muted); min-width: 100px; }
+    .field-note { color: var(--text); }
+    .rel-box { background: #f0f9ff; border-left: 4px solid var(--primary); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 0.9rem; }
+    .rel-box strong { color: var(--primary); }
+    .diagram { background: #1e293b; color: #e2e8f0; padding: 24px; border-radius: 10px; font-family: 'Consolas', 'Monaco', monospace; font-size: 0.85rem; line-height: 1.8; white-space: pre; overflow-x: auto; margin: 16px 0; }
+    .tip { background: #f0fdf4; border-left: 4px solid var(--success); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 0.9rem; }
+    .warning { background: #fffbeb; border-left: 4px solid var(--warning); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 0.9rem; }
+    .code-block { background: #1e293b; color: #e2e8f0; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 0.85rem; overflow-x: auto; margin: 12px 0; }
+    .footer { text-align: center; margin-top: 48px; padding: 20px; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <h1>GlideGear — Database Schema Details</h1>
+  <p>Based on EF Core Code First + SQL Server, 7 core tables plus 2 Identity extension tables</p>
+
+  <!-- ER diagram -->
+  <h2>ER Relationship Diagram (Text Version)</h2>
+  <div class="diagram">
+┌──────────────┐       ┌──────────────┐
+│    User      │       │   Address    │
+├──────────────┤       ├──────────────┤
+│ Id (PK)      │──1:1──│ Id (PK)      │
+│ Email        │       │ Name         │
+│ PasswordHash │       │ Line1        │
+│ RoleId       │       │ Line2        │
+│ AddressId(FK)│       │ City         │
+└──────┬───────┘       │ State        │
+       │               │ PostalCode   │
+       │ 1             │ Country      │
+       │               └──────────────┘
+       │
+       │ 1
+       ▼
+┌──────────────┐       ┌──────────────┐
+│    Basket    │──1:N──│  BasketItem  │
+├──────────────┤       ├──────────────┤
+│ Id (PK)      │       │ Id (PK)      │
+│ BasketId     │       │ BasketId(FK) │
+│ ClientSecret │       │ ProductId(FK)│
+│ PaymentIntent│       │ Quantity     │
+└──────┬───────┘       └──────┬───────┘
+       │                      │ N:1
+       │                      │
+       │                      ▼
+┌──────────────┐       ┌──────────────┐
+│    Product   │       │    Order     │
+├──────────────┤       ├──────────────┤
+│ Id (PK)      │       │ Id (PK)      │
+│ Name         │       │ BuyerEmail   │
+│ Description  │       │ Orderdate    │
+│ Price        │       │ Subtotal     │
+│ QuantityInStk│       │ DeliveryFee  │
+│ Brand        │       │ Discount     │
+│ Type         │       │ PaymentIntent│
+│ PictureUrl   │       │ OrderStatus  │
+└──────────────┘       │ ShippingAddr │
+                       │ PaymentSumm  │
+                       └──────┬───────┘
+                              │ 1:N
+                              ▼
+                       ┌──────────────┐
+                       │  OrderItem   │
+                       ├──────────────┤
+                       │ Id (PK)      │
+                       │ OrderId (FK) │
+                       │ ProductId*   │ ← snapshot, not FK
+                       │ Price (long) │ ← fixed at order time
+                       │ Quantity     │
+                       └──────────────┘
+                       *ItemOrdered: {ProductId, Name, PictureUrl}
+  </div>
+
+  <!-- Core entities -->
+  <h2>Core Entity Details</h2>
+
+  <div class="entity-card">
+    <h3>Product (Product)</h3>
+    <div class="field-row"><span class="field-name">Id</span><span class="field-type">int PK</span><span class="field-note">Auto-increment primary key</span></div>
+    <div class="field-row"><span class="field-name">Name</span><span class="field-type">string</span><span class="field-note">Product name</span></div>
+    <div class="field-row"><span class="field-name">Description</span><span class="field-type">string</span><span class="field-note">Product description</span></div>
+    <div class="field-row"><span class="field-name">Price</span><span class="field-type">long</span><span class="field-note">Amount in cents, avoids floating-point errors</span></div>
+    <div class="field-row"><span class="field-name">QuantityInStock</span><span class="field-type">int</span><span class="field-note">Inventory count, deducted on order</span></div>
+    <div class="field-row"><span class="field-name">Brand</span><span class="field-type">string</span><span class="field-note">Brand, used for filtering</span></div>
+    <div class="field-row"><span class="field-name">Type</span><span class="field-type">string</span><span class="field-note">Type (Boards/Hats/Gloves/Boots)</span></div>
+    <div class="field-row"><span class="field-name">PictureUrl</span><span class="field-type">string</span><span class="field-note">Image path</span></div>
+    <div class="tip">💡 Price uses long (cents) instead of decimal to avoid floating-point precision issues, standard practice in financial systems.</div>
+  </div>
+
+  <div class="entity-card">
+    <h3>Basket (Shopping Cart)</h3>
+    <div class="field-row"><span class="field-name">Id</span><span class="field-type">int PK</span><span class="field-note">Auto-increment primary key</span></div>
+    <div class="field-row"><span class="field-name">BasketId</span><span class="field-type">string</span><span class="field-note">UUID, corresponds to Cookie value</span></div>
+    <div class="field-row"><span class="field-name">ClientSecret</span><span class="field-type">string?</span><span class="field-note">Stripe ClientSecret, used for frontend payment</span></div>
+    <div class="field-row"><span class="field-name">PaymentIntentId</span><span class="field-type">string?</span><span class="field-note">Stripe PaymentIntent ID, links to order</span></div>
+    <div class="field-row"><span class="field-name">Items</span><span class="field-type">List<BasketItem></span><span class="field-note">Shopping cart items list (navigation property)</span></div>
+    <div class="rel-box"><strong>Business methods:</strong><br>
+    <code>basket.addItem(product, quantity)</code> — increments quantity if exists, otherwise adds new<br>
+    <code>basket.RemoveItem(productId, quantity)</code> — removes entry when quantity reaches zero</div>
+  </div>
+
+  <div class="entity-card">
+    <h3>BasketItem (Shopping Cart Item)</h3>
+    <div class="field-row"><span class="field-name">Id</span><span class="field-type">int PK</span><span class="field-note">Auto-increment primary key</span></div>
+    <div class="field-row"><span class="field-name">BasketId</span><span class="field-type">int FK</span><span class="field-note">Foreign key → Basket.Id</span></div>
+    <div class="field-row"><span class="field-name">ProductId</span><span class="field-type">int FK</span><span class="field-note">Foreign key → Product.Id</span></div>
+    <div class="field-row"><span class="field-name">Quantity</span><span class="field-type">int</span><span class="field-note">Purchase quantity</span></div>
+    <div class="field-row"><span class="field-name">Product</span><span class="field-type">Product (Nav)</span><span class="field-note">Navigation property, links to product info</span></div>
+  </div>
+
+  <div class="entity-card">
+    <h3>Order (Order)</h3>
+    <div class="field-row"><span class="field-name">Id</span><span class="field-type">int PK</span><span class="field-note">Auto-increment primary key</span></div>
+    <div class="field-row"><span class="field-name">BuyerEmail</span><span class="field-type">string</span><span class="field-note">Buyer email, used to query user orders</span></div>
+    <div class="field-row"><span class="field-name">Orderdate</span><span class="field-type">DateTime</span><span class="field-note">Order time (UTC)</span></div>
+    <div class="field-row"><span class="field-name">Subtotal</span><span class="field-type">long</span><span class="field-note">Product subtotal (cents)</span></div>
+    <div class="field-row"><span class="field-name">DeliveryFee</span><span class="field-type">long</span><span class="field-note">Shipping fee (￥5 or 0, free over ￥100)</span></div>
+    <div class="field-row"><span class="field-name">Discount</span><span class="field-type">long</span><span class="field-note">Discount (currently fixed at 0)</span></div>
+    <div class="field-row"><span class="field-name">PaymentIntentId</span><span class="field-type">string?</span><span class="field-note">Links to Stripe, used by Webhook callback to find order</span></div>
+    <div class="field-row"><span class="field-name">OrderStatus</span><span class="field-type">enum</span><span class="field-note">Pending / PaymentReceived / PaymentFailed / PaymentMismatch</span></div>
+    <div class="field-row"><span class="field-name">ShippingAddress</span><span class="field-type">ShippingAddress</span><span class="field-note">Embedded value object (not independent table)</span></div>
+    <div class="field-row"><span class="field-name">PaymentSummary</span><span class="field-type">PaymentSummary</span><span class="field-note">Embedded value object (last 4 card digits etc.)</span></div>
+    <div class="field-row"><span class="field-name">OrderItems</span><span class="field-type">List<OrderItem></span><span class="field-note">Order details</span></div>
+    <div class="rel-box"><strong>Calculated property:</strong><br>
+    <code>GetTotal() = Subtotal + DeliveryFee - Discount</code></div>
+  </div>
+
+  <div class="entity-card">
+    <h3>OrderItem (Order Item)</h3>
+    <div class="field-row"><span class="field-name">Id</span><span class="field-type">int PK</span><span class="field-note">Auto-increment primary key</span></div>
+    <div class="field-row"><span class="field-name">OrderId</span><span class="field-type">int FK</span><span class="field-note">Foreign key → Order.Id</span></div>
+    <div class="field-row"><span class="field-name">ItemOrdered</span><span class="field-type">ProductItemOrdered</span><span class="field-note"><strong>Snapshot object</strong>, not navigation property</span></div>
+    <div class="field-row"><span class="field-name">Price</span><span class="field-type">long</span><span class="field-note"><strong>Price at order time</strong>, does not reference Product.Price</span></div>
+    <div class="field-row"><span class="field-name">Quantity</span><span class="field-type">int</span><span class="field-note">Purchase quantity</span></div>
+    <div class="warning">⚠️ <code>ItemOrdered</code> is a snapshot containing ProductId, Name, PictureUrl. No foreign key set, so product name/image changes don’t affect historical order display.</div>
+  </div>
+
+  <div class="entity-card">
+    <h3>User (User, extending IdentityUser)</h3>
+    <div class="field-row"><span class="field-name">Id</span><span class="field-type">string PK</span><span class="field-note">Identity primary key (GUID)</span></div>
+    <div class="field-row"><span class="field-name">UserName</span><span class="field-type">string</span><span class="field-note">Typically equals Email</span></div>
+    <div class="field-row"><span class="field-name">Email</span><span class="field-type">string</span><span class="field-note">Unique email</span></div>
+    <div class="field-row"><span class="field-name">PasswordHash</span><span class="field-type">string</span><span class="field-note">Identity-managed automatically</span></div>
+    <div class="field-row"><span class="field-name">AddressId</span><span class="field-type">int?</span><span class="field-note">Optional, links to Address</span></div>
+    <div class="field-row"><span class="field-name">Address</span><span class="field-type">Address?</span><span class="field-note">Navigation property</span></div>
+  </div>
+
+  <div class="entity-card">
+    <h3>Address (Shipping Address)</h3>
+    <div class="field-row"><span class="field-name">Id</span><span class="field-type">int PK</span><span class="field-note">Auto-increment primary key (JsonIgnore, not serialized)</span></div>
+    <div class="field-row"><span class="field-name">Name</span><span class="field-type">string</span><span class="field-note">Recipient name</span></div>
+    <div class="field-row"><span class="field-name">Line1</span><span class="field-type">string</span><span class="field-note">Address line 1</span></div>
+    <div class="field-row"><span class="field-name">Line2</span><span class="field-type">string?</span><span class="field-note">Address line 2 (optional)</span></div>
+    <div class="field-row"><span class="field-name">City</span><span class="field-type">string</span><span class="field-note">City</span></div>
+    <div class="field-row"><span class="field-name">State</span><span class="field-type">string</span><span class="field-note">State/Province</span></div>
+    <div class="field-row"><span class="field-name">PostalCode</span><span class="field-type">string</span><span class="field-note">Postal code (JSON field name postal_code)</span></div>
+    <div class="field-row"><span class="field-name">Country</span><span class="field-type">string</span><span class="field-note">Country</span></div>
+  </div>
+
+  <!-- Value objects -->
+  <h2>Value Objects (Embedded, No Separate Tables)</h2>
+  <div class="card-grid">
+    <div class="entity-card">
+      <h3>ShippingAddress</h3>
+      <div class="field-row"><span class="field-name">Name</span><span class="field-type">string</span></div>
+      <div class="field-row"><span class="field-name">Line1</span><span class="field-type">string</span></div>
+      <div class="field-row"><span class="field-name">City</span><span class="field-type">string</span></div>
+      <div class="field-row"><span class="field-name">State</span><span class="field-type">string</span></div>
+      <div class="field-row"><span class="field-name">PostalCode</span><span class="field-type">string</span></div>
+      <div class="field-row"><span class="field-name">Country</span><span class="field-type">string</span></div>
+    </div>
+    <div class="entity-card">
+      <h3>PaymentSummary</h3>
+      <div class="field-row"><span class="field-name">CardName</span><span class="field-type">string</span></div>
+      <div class="field-row"><span class="field-name">CardNumber</span><span class="field-type">string</span></div>
+      <div class="field-row"><span class="field-name">ExpMonth</span><span class="field-type">int</span></div>
+      <div class="field-row"><span class="field-name">ExpYear</span><span class="field-type">int</span></div>
+      <div class="field-row"><span class="field-name">Cvc</span><span class="field-type">string</span></div>
+    </div>
+    <div class="entity-card">
+      <h3>ProductItemOrdered (Snapshot)</h3>
+      <div class="field-row"><span class="field-name">ProductId</span><span class="field-type">int</span></div>
+      <div class="field-row"><span class="field-name">Name</span><span class="field-type">string</span></div>
+      <div class="field-row"><span class="field-name">PictureUrl</span><span class="field-type">string</span></div>
+    </div>
+  </div>
+
+  <!-- Order status machine -->
+  <h2>Order Status Machine</h2>
+  <div class="diagram">
+                    ┌──────────┐
+                    │  Pending │
+                    └────┬─────┘
+                         │ Order created
+                         ▼
+                    ┌──────────┐
+              ┌────│PaymentReceived│────┐
+              │    └────┬─────┘    │    │
+              │         │          │    │
+              │    payment     payment   │
+              │    succeeded   failed    │
+              │         │          │    │
+              │         ▼          ▼    │
+              │  ┌──────────┐  ┌──────────────┐
+              └──│PaymentMismatch│  │PaymentFailed │
+                 └──────────┘  └──────┬───────┘
+                                        │ Inventory rollback
+                                        ▼
+                                  (Back to Pending for retry)
+  </div>
+
+  <!-- Design points -->
+  <h2>Design Points (Interview FAQs)</h2>
+  <div class="rel-box">
+    <strong>1. Why doesn’t OrderItem use foreign key to Product?</strong><br>
+    Prices change over time; historical orders must preserve checkout-time price. Snapshot design ensures financial data immutability.<br><br>
+    <strong>2. Why doesn’t Basket use UserId foreign key?</strong><br>
+    Shopping cart must work for unauthenticated users; uses random BasketId + Cookie for anonymous cart functionality.<br><br>
+    <strong>3. Why use long (cents) for price instead of decimal?</strong><br>
+    Avoids floating-point precision errors; finance-industry standard; frontend divides by 100 to display dollars.<br><br>
+    <strong>4. Why is Address a separate table instead of embedded?</strong><br>
+    User can save multiple addresses (current version supports one); separate table leaves room for future extension.
+  </div>
+
+  <div class="footer">GlideGear SDE1 Interview Prep · 2025</div>
+</div>
+</body>
+</html>
