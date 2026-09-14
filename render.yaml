@@ -18,7 +18,11 @@ services:
         fromSecret: STRIPE_SECRET_KEY
       - key: StripeSetting__WhSecret
         fromSecret: STRIPE_WH_SECRET
+      - key: StripeSetting__PublishableKey
+        value: pk_test_51QxLlgGsxzETgM5h2jF2TQVkuOXJrLoy0K9JqbS2dhAueBbIb785RZE4FNdxRC4oPWlKp5gC8LeJxXTrUE1G0rrD00ijnyP2RR
       - key: ASPNETCORE_URLS
         value: http://0.0.0.0:8080
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
     region: oregon
     branch: main
