@@ -5,7 +5,7 @@ import mkcert from 'vite-plugin-mkcert'
 export default defineConfig({
   base: '/GlideGear/',
   build: {
-    outDir: 'build',
+    outDir: '../docs',
     chunkSizeWarningLimit: 1024,
     emptyOutDir: true
   },
