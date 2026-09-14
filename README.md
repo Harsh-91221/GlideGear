@@ -20,7 +20,7 @@ GlideGear is a complete online store solution built with a modern tech stack. Th
 - **Database**: PostgreSQL with Npgsql Entity Framework provider
 - **Authentication**: ASP.NET Core Identity with JWT tokens
 - **Payments**: Stripe.net SDK with Payment Intents and Webhooks
-- **Deployment**: GitHub Pages (frontend) + Render.com (backend)
+- **Testing**: Stripe test mode for secure payment testing
 
 ### Technology Highlights
 - 18 products seeded with descriptions, prices, and images
