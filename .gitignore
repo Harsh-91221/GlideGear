@@ -1,2 +1,5 @@
 API/appsettings.json
 API/node_modules
+client/node_modules
+**/.env.local
+**/node_modules
