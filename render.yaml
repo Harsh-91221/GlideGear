@@ -6,10 +6,9 @@ databases:
 services:
   - type: web
     name: glidegear-api
-    env: dotnet
+    env: docker
     plan: free
-    buildCommand: dotnet publish API/API.csproj -c Release -o out
-    startCommand: dotnet out/API.dll
+    dockerfilePath: ./API/Dockerfile
     envVars:
       - key: ConnectionStrings__DefaultConnection
         fromDatabase:
