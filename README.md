@@ -30,5 +30,5 @@ GlideGear is a complete online store solution built with a modern tech stack. Th
 - Responsive design working across desktop and mobile devices
 
 ### Project Documentation
-- [GlideGear Overview](Overview/walkthrough-glidegear-overview.html) - Complete project walkthrough
-- [GlideGear Database Schema](Overview/walkthrough-glidegear-database-schema.html) - Database schema visualization
+- [GlideGear Overview](https://harsh-91221.github.io/GlideGear/walkthrough-glidegear-overview.html) - Complete project walkthrough
+- [GlideGear Database Schema](https://harsh-91221.github.io/GlideGear/walkthrough-glidegear-database-schema.html) - Database schema visualization
