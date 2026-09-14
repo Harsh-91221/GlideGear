@@ -1,0 +1,25 @@
+databases:
+  - name: glidegear-db
+    databaseName: glidegear
+    plan: free
+
+services:
+  - type: web
+    name: glidegear-api
+    env: dotnet
+    plan: free
+    buildCommand: dotnet publish API/API.csproj -c Release -o out
+    startCommand: dotnet out/API.dll
+    envVars:
+      - key: ConnectionStrings__DefaultConnection
+        fromDatabase:
+          databaseName: glidegear-db
+          name: glidegear-db
+      - key: StripeSetting__SecretKey
+        fromSecret: STRIPE_SECRET_KEY
+      - key: StripeSetting__WhSecret
+        fromSecret: STRIPE_WH_SECRET
+      - key: ASPNETCORE_URLS
+        value: http://0.0.0.0:8080
+    region: oregon
+    branch: main
