@@ -33,3 +33,10 @@ GlideGear is a complete online store solution built with a modern tech stack. Th
 - **Frontend**: GitHub Pages at https://harsh-91221.github.io/GlideGear/
 - **Backend**: Render.com PostgreSQL database and Web Service
 - **CI/CD**: GitHub Actions for automated builds and deployment
+
+### HTML Files
+- **Main Page**: https://harsh-91221.github.io/GlideGear/ (serves `index.html`)
+- **Source Files**: GitHub Repository: https://github.com/Harsh-91221/GlideGear/tree/main/docs
+  - `index.html` - Entry point
+  - `assets/index-*.css` - Stylesheets
+  - `assets/index-*.js` - JavaScript bundles
