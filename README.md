@@ -1,85 +1,88 @@
 # GlideGear
+GlideGear is a full-stack e-commerce application that provides a seamless shopping experience with a modern React frontend and a robust ASP.NET Core backend. The platform offers product browsing, shopping cart management, user authentication, and integrated Stripe payments, making it a complete online store solution.
 
-A full-stack e-commerce application with a React frontend and ASP.NET Core backend.
+🚀 Demo
+Live Link: GlideGear - Online Store
+Frontend: https://harsh-91221.github.io/GlideGear/
 
-## Quick Start
+📚 Documentation
+Project Overview Walkthrough
+Database Schema Walkthrough
 
-### Frontend (GitHub Pages)
-The frontend is built with Vite + React and deployed to GitHub Pages.
-- **Live URL**: https://harsh-91221.github.io/GlideGear/
-- **Source**: `main` branch, `/docs` folder
+📌 Project Highlights
+🔐 User Authentication & Authorization (Identity Framework)
+🛒 Shopping Cart Management with Session-based Baskets
+✅ Order Processing & History
+💳 Stripe Payment Integration (Test Mode)
+📦 Product Catalog with Filtering & Search
+📄 Pagination Support for Large Product Sets
+🏷️ Product Categories (Brands & Types)
+⚡ Vite + React for Fast Development
+🔧 Full-stack ASP.NET Core API Architecture
+💾 PostgreSQL Database with EF Core
 
-### Backend (Render.com)
-The backend is an ASP.NET Core 9 API using PostgreSQL (via Npgsql).
-- **Live URL**: https://glidegear-api.onrender.com (after deployment)
-- **Database**: PostgreSQL via Render's managed databases
-- **Stripe**: Test mode enabled for payments
+🔧 Technologies Used
+🖥️ Frontend
+React 19 (with TypeScript)
+Vite.js
+Redux Toolkit
+MUI (Material-UI)
+React Hook Form + Zod Validation
+Stripe.js for Payments
+React Router DOM
 
-## Local Development
+🖥️ Backend
+ASP.NET Core 9 (C#)
+Entity Framework Core
+PostgreSQL (Npgsql)
+Microsoft Identity Framework
+Stripe.net SDK
+JWT Authentication (via Identity API Endpoints)
+CORS Configuration
 
-### Prerequisites
-- Node.js 20+
-- .NET 9 SDK
-- PostgreSQL (or use Render's managed database)
+💡 Key Features
+Feature	Description
+Authentication	Register, login, logout with email/password
+User Roles	Member and Admin roles with Access Control
+Product Catalog	Browse products with search and filters
+Shopping Cart	Add/remove items, persist across sessions
+Checkout	Shipping address collection and order placement
+Payments	Stripe integration for secure payment processing
+Order History	View past orders with status tracking
+Product Management	CRUD operations for products (Admin)
+Pagination	Optimized loading for large product lists
+CORS Setup	Frontend-backend communication enabled
 
-### Backend Setup
-```bash
-cd API
-dotnet restore
-dotnet run
-```
-The API will start at http://localhost:5001 (or the port configured in `launchSettings.json`).
+🧠 Challenges Faced
+Implementing session-based basket management with cookies
+Integrating Stripe Payment Intents with webhook handling
+Managing Entity Framework migrations for PostgreSQL
+Configuring ASP.NET Identity with custom User model
+Handling CORS between GitHub Pages frontend and Render backend
+Ensuring data consistency during order creation and payment
 
-### Frontend Setup
-```bash
-cd client
-npm install
-npm run dev
-```
-The Vite dev server will start at https://localhost:3000.
+🌍 Use Cases & Scope
+GlideGear is designed to support:
 
-### Environment Variables
-Copy `.env.example` to `.env` and fill in your values:
-```env
-VITE_API_URL=https://localhost:5001/api
-VITE_STRIPE_PK=pk_test_xxxxx...
-```
+Small to medium e-commerce businesses
+Product showcase platforms
+Online stores with simple payment flows
+Development projects requiring full-stack e-commerce
+E-learning demos for ASP.NET Core and React
 
-## Production Deployment
+The system can scale from a single-product store to a multi-category marketplace.
 
-### GitHub Pages (Frontend)
-1. Go to **Settings → Pages**
-2. Source: **Branch: main, Folder: /docs**
-3. Save
+🔗 API Reference
+All backend routes are listed below:
+- Authentication: `/api/account/register`, `/api/account/login`, `/api/account/logout`
+- Products: `/api/products`, `/api/products/{id}`, `/api/products/filters`
+- Basket: `/api/basket` (GET/POST/DELETE)
+- Orders: `/api/orders` (GET/POST)
+- Payments: `/api/payments` (POST), `/api/payments/webhook`
 
-### Render.com (Backend)
-1. Create a **PostgreSQL database** (free tier)
-2. Create a **Web Service**:
-   - Connect your GitHub repo
-   - Environment: **Docker**
-   - Dockerfile: `./API/Dockerfile`
-   - Environment Variables:
-     - `ConnectionStrings__DefaultConnection`: Link to your database
-     - `StripeSetting__SecretKey`: Your Stripe secret key
-     - `StripeSetting__WhSecret`: Your webhook secret
-     - `ASPNETCORE_ENVIRONMENT`: `Production`
-     - `ASPNETCORE_URLS`: `http://0.0.0.0:8080`
-3. Deploy
+For complete endpoint documentation, refer to the Swagger/OpenAPI docs when running locally.
 
-### Update Frontend API URL
-After backend is deployed, update `client/.env`:
-```env
-VITE_API_URL=https://your-api.onrender.com/api
-```
-Commit and push to rebuild.
+📞 Contact
+Author: Harsh Kumar
 
-## Architecture
-
-- **Frontend**: React 19 + Vite + TypeScript + Redux Toolkit + MUI + React Hook Form + Zod
-- **Backend**: ASP.NET Core 9 + Entity Framework Core + PostgreSQL + Stripe
-- **Testing**: Stripe test mode (no real charges)
-
-## Testing Credentials
-- **User**: `bob@test.com` / `Pa$$w0rd`
-- **Admin**: `admin@test.com` / `Pa$$w0rd`
-- **Stripe Test Card**: `4242 4242 4242 4242`, any future date, any CVC
+LinkedIn: Harsh Kumar
